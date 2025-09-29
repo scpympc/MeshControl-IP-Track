@@ -9,7 +9,11 @@ function plugin(parent) {
 
     // Called when the server is starting
     obj.server_startup = function () {
-        obj.db = require(__dirname + '/db.js').CreateDB(obj.meshServer);
+        try {
+            obj.db = require(__dirname + '/db.js').CreateDB(obj.meshServer);
+        } catch (e) {
+            console.error('Error loading ip-track plugin:', e);
+        }
     };
 
     // Called to setup custom API endpoints

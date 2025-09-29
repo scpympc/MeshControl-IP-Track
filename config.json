@@ -7,7 +7,7 @@
     "description": "Registra la dirección IP de los dispositivos y muestra su geolocalización en un mapa.",
     "meshCentralCompat": ">=1.0.0",
     "homepage": "https://github.com/scpympc/MeshControl-IP-Track",
-    "downloadUrl": "https://github.com/scpympc/MeshControl-IP-Track/archive/master.zip",
+    "downloadUrl": "https://github.com/scpympc/MeshControl-IP-Track/archive/main.zip",
     "repository": {
         "type": "git",
         "url": "https://github.com/scpympc/MeshControl-IP-Track.git"

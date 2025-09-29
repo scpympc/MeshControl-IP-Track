@@ -1,7 +1,7 @@
 {
     "name": "IP Track & Geolocation",
     "shortName": "ip-track",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "author": "scpympc",
     "description": "Registra la dirección IP de los dispositivos y muestra su geolocalización en un mapa.",
     "meshCentralCompat": ">=1.0.0",
@@ -16,10 +16,6 @@
     "meshcentral": {
         "modules": {
             "ip-track": "ip-track.js"
-        },
-        "hooks": {
-            "server_startup": "ip-track.server_startup",
-            "onWebUIStartupEnd": "ip-track.onWebUIStartupEnd"
         }
     },
     "hasAdminPanel": false

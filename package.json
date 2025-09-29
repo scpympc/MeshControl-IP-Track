@@ -1,0 +1,7 @@
+{
+    "name": "ip-track",
+    "version": "1.0.0",
+    "dependencies": {
+        "@yetzt/nedb": "^1.8.3"
+    }
+}

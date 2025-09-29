@@ -1,6 +1,6 @@
 const http = require('http');
 
-module.exports = function (parent) {
+function plugin(parent) {
     var obj = {};
     obj.parent = parent;
     obj.meshServer = parent.parent;
@@ -139,4 +139,8 @@ module.exports = function (parent) {
     }
 
     return obj;
+}
+
+module.exports = {
+    'ip-track': plugin
 };

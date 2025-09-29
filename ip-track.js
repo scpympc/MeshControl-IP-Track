@@ -7,6 +7,8 @@ function plugin(parent) {
     obj.db = null;
     var map = null; // Variable to hold the map instance
 
+    obj.exports = ['onDeviceRefreshEnd'];
+
     // Called when the server is starting
     obj.server_startup = function () {
         try {
@@ -33,37 +35,16 @@ function plugin(parent) {
         });
     };
 
-    // Called when the web UI is starting
-    obj.onWebUIStartupEnd = function () {
-        const tab = {
-            tabId: 'ip-track-map',
-            tabTitle: 'Map',
-            tabContent: `
+    obj.onDeviceRefreshEnd = function() {
+        pluginHandler.registerPluginTab({ tabId: 'ip-track-map', tabTitle: 'Map' });
+        const tabContent = document.getElementById('ip-track-map');
+        if (tabContent) {
+            tabContent.innerHTML = `
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
                 <div id="ip-track-map-container" style="height: 100%; width: 100%;"></div>
-            `,
-            onDeviceRefreshEnd: function (device) {
-                const mapContainer = document.getElementById('ip-track-map-container');
-                if (!mapContainer) return;
-
-                // Clear previous map instance if it exists
-                if (map) {
-                    map.remove();
-                    map = null;
-                }
-
-                // Load Leaflet script if not already loaded
-                if (typeof L === 'undefined') {
-                    const script = document.createElement('script');
-                    script.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
-                    script.onload = () => loadMap(device._id);
-                    document.head.appendChild(script);
-                } else {
-                    loadMap(device._id);
-                }
-            }
-        };
-        obj.parent.webui.registerPluginTab(tab);
+            `;
+            loadMap(currentNode._id);
+        }
     };
 
     function loadMap(nodeid) {

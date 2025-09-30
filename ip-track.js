@@ -1,35 +1,23 @@
 function plugin(parent) {
     var obj = {};
-    console.log('ip-track plugin: loading...');
+    console.log('iptrack plugin: loading...');
 
     obj.server_startup = function () {
-        console.log('ip-track plugin: server_startup');
-    };
-
-    obj.setupHttpHandlers = function (app) {
-        console.log('ip-track plugin: setupHttpHandlers');
-    };
-
-    obj.onAgentConnect = function (agent) {
-        console.log('ip-track plugin: onAgentConnect');
+        console.log('iptrack plugin: server_startup');
     };
 
     obj.onWebUIStartupEnd = function() {
-        console.log('ip-track plugin: onWebUIStartupEnd');
-        pluginHandler.registerPluginTab({ tabId: 'ip-track-map', tabTitle: 'Map' });
-        const tabContent = document.getElementById('ip-track-map');
+        console.log('iptrack plugin: onWebUIStartupEnd');
+        pluginHandler.registerPluginTab({ tabId: 'iptrack-map', tabTitle: 'Map' });
+        const tabContent = document.getElementById('iptrack-map');
         if (tabContent) {
             tabContent.innerHTML = '<h1>Map Tab Content</h1>';
         }
     };
 
-    obj.onDeviceRefreshEnd = function() {
-        console.log('ip-track plugin: onDeviceRefreshEnd');
-    };
+    obj.exports = ['onWebUIStartupEnd'];
 
-    obj.exports = ['onDeviceRefreshEnd'];
-
-    console.log('ip-track plugin: loaded.');
+    console.log('iptrack plugin: loaded.');
     return obj;
 }
 

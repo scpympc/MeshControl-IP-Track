@@ -6,8 +6,8 @@ function plugin(parent) {
         console.log('iptrack plugin: server_startup');
     };
 
-    obj.onWebUIStartupEnd = function() {
-        console.log('iptrack plugin: onWebUIStartupEnd');
+    obj.onDeviceRefreshEnd = function() {
+        console.log('iptrack plugin: onDeviceRefreshEnd');
         pluginHandler.registerPluginTab({ tabId: 'iptrack-map', tabTitle: 'Map' });
         const tabContent = document.getElementById('iptrack-map');
         if (tabContent) {
@@ -15,7 +15,7 @@ function plugin(parent) {
         }
     };
 
-    obj.exports = ['onWebUIStartupEnd'];
+    obj.exports = ['onDeviceRefreshEnd'];
 
     console.log('iptrack plugin: loaded.');
     return obj;

@@ -9,10 +9,7 @@ function plugin(parent) {
     obj.onDeviceRefreshEnd = function() {
         console.log('iptrack plugin: onDeviceRefreshEnd');
         pluginHandler.registerPluginTab({ tabId: 'iptrack-map', tabTitle: 'Map' });
-        const tabContent = document.getElementById('iptrack-map');
-        if (tabContent) {
-            tabContent.innerHTML = '<h1>Map Tab Content</h1>';
-        }
+        QA('iptrack-map', '<h1>Map Tab Content</h1>');
     };
 
     obj.exports = ['onDeviceRefreshEnd'];

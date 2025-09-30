@@ -8,8 +8,8 @@ function plugin(parent) {
 
     obj.onDeviceRefreshEnd = function() {
         console.log('iptrack plugin: onDeviceRefreshEnd');
-        pluginHandler.registerPluginTab({ tabId: 'iptrack-map', tabTitle: 'Map' });
-        QA('iptrack-map', '<h1>Map Tab Content</h1>');
+        pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'Map' });
+        QA('iptrackmap', '<h1>Map Tab Content</h1>');
     };
 
     obj.exports = ['onDeviceRefreshEnd'];

@@ -43,23 +43,38 @@ function plugin(parent) {
     };
 
     obj.onDeviceRefreshEnd = function() {
-        console.log('iptrack plugin: onDeviceRefreshEnd');
-        
-        const device = mesh.currentNode;
-        if (!device) return;
+        try {
+            console.log('iptrack plugin: onDeviceRefreshEnd');
+            
+            if (typeof mesh === 'undefined' || !mesh.currentNode) {
+                console.log('iptrack plugin: mesh.currentNode not available');
+                return;
+            }
+            const device = mesh.currentNode;
 
-        pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'Map' });
-        
-        const iframe = `<iframe id="pluginIframeIptrack" style="width: 100%; height: 700px; overflow: auto" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
-        QA('iptrackmap', iframe);
+            if (typeof pluginHandler === 'undefined' || typeof pluginHandler.registerPluginTab === 'undefined') {
+                console.log('iptrack plugin: pluginHandler not available');
+                return;
+            }
+            pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'Map' });
+            
+            if (typeof QA === 'undefined') {
+                console.log('iptrack plugin: QA not available');
+                return;
+            }
+            const iframe = `<iframe id="pluginIframeIptrack" style="width: 100%; height: 700px; overflow: auto" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
+            QA('iptrackmap', iframe);
 
-        const iframeElement = document.getElementById('pluginIframeIptrack');
-        if (iframeElement) {
-            iframeElement.onload = function() {
-                if (iframeElement.contentWindow) {
-                    iframeElement.contentWindow.postMessage({ nodeid: device._id }, '*');
-                }
-            };
+            const iframeElement = document.getElementById('pluginIframeIptrack');
+            if (iframeElement) {
+                iframeElement.onload = function() {
+                    if (iframeElement.contentWindow) {
+                        iframeElement.contentWindow.postMessage({ nodeid: device._id }, '*');
+                    }
+                };
+            }
+        } catch (e) {
+            console.error('iptrack plugin: caught error in onDeviceRefreshEnd', e);
         }
     };
 

@@ -42,17 +42,23 @@ function plugin(parent) {
         });
     };
 
-    obj.onDeviceRefreshEnd = function(device) {
+    obj.onDeviceRefreshEnd = function() {
         console.log('iptrack plugin: onDeviceRefreshEnd');
+        
+        const device = mesh.currentNode;
+        if (!device) return;
+
         pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'Map' });
         
         const iframe = `<iframe id="pluginIframeIptrack" style="width: 100%; height: 700px; overflow: auto" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
         QA('iptrackmap', iframe);
 
         const iframeElement = document.getElementById('pluginIframeIptrack');
-        if (iframeElement && iframeElement.contentWindow) {
+        if (iframeElement) {
             iframeElement.onload = function() {
-                iframeElement.contentWindow.postMessage({ nodeid: device._id }, '*');
+                if (iframeElement.contentWindow) {
+                    iframeElement.contentWindow.postMessage({ nodeid: device._id }, '*');
+                }
             };
         }
     };

@@ -16,7 +16,7 @@ module.exports.CreateDB = function(meshserver) {
         };
     };
 
-    if (meshserver.args.mongodb) {
+    if (meshserver.args && meshserver.args.mongodb) {
         // MongoDB support can be added here if needed
     } else {
         Datastore = require('@yetzt/nedb');

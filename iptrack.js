@@ -73,7 +73,7 @@ function plugin(parent) {
 
             pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'IP Map' });
             
-            const iframe = `<iframe id="pluginIframeIptrack" style="width: 100%; height: 700px; overflow: auto" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
+            const iframe = `<iframe id="pluginIframeIptrack" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
             QA('iptrackmap', iframe);
 
             const iframeElement = document.getElementById('pluginIframeIptrack');

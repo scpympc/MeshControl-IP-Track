@@ -43,25 +43,36 @@ function plugin(parent) {
     };
 
     obj.onDeviceRefreshEnd = function() {
+        console.log('--- EXECUTING IPTRAK PLUGIN SCRIPT v2.0.2 ---');
         try {
             console.log('iptrack plugin: onDeviceRefreshEnd');
-            
-            if (typeof mesh === 'undefined' || !mesh.currentNode) {
-                console.log('iptrack plugin: mesh.currentNode not available');
-                return;
-            }
-            const device = mesh.currentNode;
 
-            if (typeof pluginHandler === 'undefined' || typeof pluginHandler.registerPluginTab === 'undefined') {
-                console.log('iptrack plugin: pluginHandler not available');
+            let nodeId = null;
+            if (typeof mesh !== 'undefined' && mesh.currentNode) {
+                if (typeof mesh.currentNode === 'object' && mesh.currentNode._id) {
+                    nodeId = mesh.currentNode._id;
+                    console.log('iptrack plugin: got nodeId from mesh.currentNode object');
+                } else if (typeof mesh.currentNode === 'string') {
+                    nodeId = mesh.currentNode;
+                    console.log('iptrack plugin: got nodeId from mesh.currentNode string');
+                }
+            }
+
+            if (!nodeId) {
+                const urlParams = new URLSearchParams(window.location.search);
+                nodeId = urlParams.get('gotonode');
+                if (nodeId) {
+                    console.log('iptrack plugin: got nodeId from URL');
+                }
+            }
+
+            if (!nodeId) {
+                console.log('iptrack plugin: nodeId not available from mesh.currentNode or URL');
                 return;
             }
-            pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'Map' });
+
+            pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'IP Map' });
             
-            if (typeof QA === 'undefined') {
-                console.log('iptrack plugin: QA not available');
-                return;
-            }
             const iframe = `<iframe id="pluginIframeIptrack" style="width: 100%; height: 700px; overflow: auto" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
             QA('iptrackmap', iframe);
 
@@ -69,7 +80,7 @@ function plugin(parent) {
             if (iframeElement) {
                 iframeElement.onload = function() {
                     if (iframeElement.contentWindow) {
-                        iframeElement.contentWindow.postMessage({ nodeid: device._id }, '*');
+                        iframeElement.contentWindow.postMessage({ nodeid: nodeId }, '*');
                     }
                 };
             }
@@ -85,5 +96,5 @@ function plugin(parent) {
 }
 
 module.exports = {
-    'iptrack': plugin
+    'iptracknew': plugin
 };

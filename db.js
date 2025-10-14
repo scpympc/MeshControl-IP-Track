@@ -5,7 +5,7 @@ var formatId = null;
 module.exports.CreateDB = function(meshserver) {
     var obj = {};
     var NEMongo = require(__dirname + '/nemongo.js');
-    module.paths.push(require('path').join(meshserver.parentpath, 'node_modules'));
+
 
     obj.initFunctions = function () {
         obj.addLocationHistory = function(nodeid, ip, geo) {

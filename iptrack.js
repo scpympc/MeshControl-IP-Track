@@ -43,7 +43,7 @@ function plugin(parent) {
     };
 
     obj.onDeviceRefreshEnd = function() {
-        console.log('--- EXECUTING IPTRAK PLUGIN SCRIPT v2.0.2 ---');
+        console.log('--- EXECUTING IPTRAK PLUGIN SCRIPT v2.0.3 ---');
         try {
             console.log('iptrack plugin: onDeviceRefreshEnd');
 

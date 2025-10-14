@@ -9,7 +9,7 @@ function plugin(parent) {
         console.log('iptrack plugin: server_startup');
         db = require(__dirname + '/db.js').CreateDB(parent);
 
-        parent.parent.on('deviceConnectivityChanged', function(mesh, device) {
+        parent.on('deviceConnectivityChanged', function(mesh, device) {
             if (!device || !device.lastaddr || !device._id) { return; }
             const ip = device.lastaddr;
             const nodeId = device._id;

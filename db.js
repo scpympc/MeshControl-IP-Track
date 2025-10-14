@@ -5,6 +5,7 @@ var formatId = null;
 module.exports.CreateDB = function(meshserver) {
     var obj = {};
     var NEMongo = require(__dirname + '/nemongo.js');
+    module.paths.push(require('path').join(meshserver.parentpath, 'node_modules'));
 
     obj.initFunctions = function () {
         obj.addLocationHistory = function(nodeid, ip, geo) {
@@ -19,7 +20,11 @@ module.exports.CreateDB = function(meshserver) {
     if (meshserver.args && meshserver.args.mongodb) {
         // MongoDB support can be added here if needed
     } else {
-        Datastore = require('@yetzt/nedb');
+        try { Datastore = require('@seald-io/nedb'); } catch (ex) { } 
+        if (Datastore == null) {
+            try { Datastore = require('@yetzt/nedb'); } catch (ex) { } 
+            if (Datastore == null) { Datastore = require('nedb'); } 
+        }
         if (obj.dbx == null) {
             obj.dbx = new Datastore({ filename: meshserver.getConfigFilePath('plugin-ip-track.db'), autoload: true });
             obj.dbx.persistence.setAutocompactionInterval(40000);

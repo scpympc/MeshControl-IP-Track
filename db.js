@@ -26,7 +26,7 @@ module.exports.CreateDB = function(meshserver) {
             if (Datastore == null) { Datastore = require('nedb'); } 
         }
         if (obj.dbx == null) {
-            obj.dbx = new Datastore({ filename: meshserver.getConfigFilePath('plugin-ip-track.db'), autoload: true });
+            obj.dbx = new Datastore({ filename: __dirname + '/plugin-ip-track.db', autoload: true });
             obj.dbx.persistence.setAutocompactionInterval(40000);
             obj.dbx.ensureIndex({ fieldName: 'nodeid' });
         }

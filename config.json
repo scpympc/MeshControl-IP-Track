@@ -1,7 +1,7 @@
 {
     "name": "IP Track & Geolocation",
     "shortName": "iptrack",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "author": "scpympc",
     "description": "Registra la dirección IP de los dispositivos y muestra su geolocalización en un mapa.",
     "meshCentralCompat": ">=1.0.0",

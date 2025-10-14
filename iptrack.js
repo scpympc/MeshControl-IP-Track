@@ -96,5 +96,5 @@ function plugin(parent) {
 }
 
 module.exports = {
-    'iptracknew': plugin
+    'iptrack': plugin
 };

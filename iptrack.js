@@ -32,6 +32,11 @@ function plugin(parent) {
         });
         */
 
+        // Endpoint to serve map.html
+        parent.app.get('/plugins/iptrack/map', function(req, res) {
+            res.sendFile(__dirname + '/public/map.html');
+        });
+
         // API endpoint to get location history
         parent.app.get('/plugins/iptrack/locations/:nodeid', function(req, res) {
             const nodeId = req.params.nodeid;
@@ -75,11 +80,14 @@ function plugin(parent) {
 
             pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'IP Map' });
             
-            const iframe = `<iframe id="pluginIframeIptrack" scrolling="yes" frameBorder=0 src="/plugins/iptrack/public/map.html" />`;
+            const iframe = `<iframe id="pluginIframeIptrack" scrolling="yes" frameBorder=0 src="/plugins/iptrack/map" />`;
             QA('iptrackmap', iframe);
 
             const iframeElement = document.getElementById('pluginIframeIptrack');
             if (iframeElement) {
+                iframeElement.style.width = '100%';
+                iframeElement.style.height = '700px';
+                iframeElement.style.overflow = 'auto';
                 iframeElement.onload = function() {
                     if (iframeElement.contentWindow) {
                         iframeElement.contentWindow.postMessage({ nodeid: nodeId }, '*');

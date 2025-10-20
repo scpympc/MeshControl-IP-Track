@@ -9,6 +9,7 @@ function plugin(parent) {
         console.log('iptrack plugin: server_startup');
         db = require(__dirname + '/db.js').CreateDB(parent);
 
+        /*
         parent.meshserver.on('deviceConnectivityChanged', function(mesh, device) {
             if (!device || !device.lastaddr || !device._id) { return; }
             const ip = device.lastaddr;
@@ -29,6 +30,7 @@ function plugin(parent) {
                 }).on('error', (err) => { console.error('iptrack plugin: error getting geolocation', err); });
             }).catch(function(err) { console.error('iptrack plugin: error getting location history', err); });
         });
+        */
 
         // API endpoint to get location history
         parent.app.get('/plugins/iptrack/locations/:nodeid', function(req, res) {

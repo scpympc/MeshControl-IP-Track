@@ -45,6 +45,14 @@ function plugin(parent) {
     };
 
     obj.handleAdminReq = function(req, res, user) {
+        if (req.query.include == 1) {
+            switch (req.query.path.split('/').pop().split('.').pop()) {
+                case 'css':     res.contentType('text/css'); break;
+                case 'js':      res.contentType('text/javascript'); break;
+            }
+            res.sendFile(__dirname + '/public/' + req.query.path);
+            return;
+        }
         res.sendFile(__dirname + '/public/map.html');
     };
 

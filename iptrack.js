@@ -32,16 +32,7 @@ function plugin(parent) {
         });
         */
 
-        // API endpoint to get location history
-        parent.app.get('/plugins/iptrack/locations/:nodeid', function(req, res) {
-            const nodeId = req.params.nodeid;
-            db.getLocationHistory(nodeId).then(function(history) {
-                res.json(history);
-            }).catch(function(err) {
-                res.status(500).send('Error getting location history');
-                console.error('iptrack plugin: error getting location history for API', err);
-            });
-        });
+
     };
 
     obj.handleAdminReq = function(req, res, user) {
@@ -54,6 +45,19 @@ function plugin(parent) {
             return;
         }
         res.sendFile(__dirname + '/public/map.html');
+    };
+
+    obj.hook_setupHttpHandlers = function(parent) {
+        // API endpoint to get location history
+        parent.app.get('/locations/:nodeid', function(req, res) {
+            const nodeId = req.params.nodeid;
+            db.getLocationHistory(nodeId).then(function(history) {
+                res.json(history);
+            }).catch(function(err) {
+                res.status(500).send('Error getting location history');
+                console.error('iptrack plugin: error getting location history for API', err);
+            });
+        });
     };
 
     obj.onDeviceRefreshEnd = function() {

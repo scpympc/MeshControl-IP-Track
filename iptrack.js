@@ -32,11 +32,6 @@ function plugin(parent) {
         });
         */
 
-        // Endpoint to serve map.html
-        parent.app.get('/plugins/iptrack/map', function(req, res) {
-            res.sendFile(__dirname + '/public/map.html');
-        });
-
         // API endpoint to get location history
         parent.app.get('/plugins/iptrack/locations/:nodeid', function(req, res) {
             const nodeId = req.params.nodeid;
@@ -47,6 +42,10 @@ function plugin(parent) {
                 console.error('iptrack plugin: error getting location history for API', err);
             });
         });
+    };
+
+    obj.handleAdminReq = function(req, res, user) {
+        res.sendFile(__dirname + '/public/map.html');
     };
 
     obj.onDeviceRefreshEnd = function() {
@@ -80,7 +79,7 @@ function plugin(parent) {
 
             pluginHandler.registerPluginTab({ tabId: 'iptrackmap', tabTitle: 'IP Map' });
             
-            const iframe = `<iframe id="pluginIframeIptrack" scrolling="yes" frameBorder=0 src="/plugins/iptrack/map" />`;
+            const iframe = `<iframe id="pluginIframeIptrack" scrolling="yes" frameBorder=0 src="/pluginadmin.ashx?pin=iptrack" />`;
             QA('iptrackmap', iframe);
 
             const iframeElement = document.getElementById('pluginIframeIptrack');

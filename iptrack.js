@@ -49,8 +49,8 @@ function plugin(parent) {
 
     obj.hook_setupHttpHandlers = function(parent) {
         // API endpoint to get location history
-        parent.app.get('/locations/:nodeid', function(req, res) {
-            const nodeId = req.params.nodeid;
+        parent.app.get('/locations.json', function(req, res) {
+            const nodeId = req.query.nodeid;
             db.getLocationHistory(nodeId).then(function(history) {
                 res.json(history);
             }).catch(function(err) {

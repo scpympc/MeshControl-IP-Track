@@ -37,7 +37,7 @@
                     }
                 });
 
-                fetch(`/plugins/iptrack/locations/${nodeId}`)
+                fetch(`/plugins/iptrack/locations.json?nodeid=${nodeId}`)
                     .then(response => response.json())
                     .then(history => {
                         if (history && history.length > 0) {

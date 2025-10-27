@@ -49,7 +49,7 @@ function plugin(parent) {
 
     obj.hook_setupHttpHandlers = function(parent) {
         // API endpoint to get location history
-        parent.app.get('/locations.json', function(req, res) {
+        parent.app.get('/plugins/iptrack/locations.json', function(req, res) {
             const nodeId = req.query.nodeid;
             db.getLocationHistory(nodeId).then(function(history) {
                 res.json(history);
